@@ -11,19 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('expenses', function (Blueprint $table) {
+        Schema::create('vehicle_maintenances', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("vehicle_profile_id");
-            $table->unsignedBigInteger("vehicle_maintenance_id")->nullable()->default(null);
             $table->string('category', 20);
             $table->decimal('amount', 8, 2);
             $table->text('comments');
-            $table->dateTime('expense_date_and_time');
+            $table->dateTime('maintenance_date_and_time');
             $table->timestamps();
             $table->foreign('vehicle_profile_id')->references('id')->on('vehicle_profiles')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('vehicle_maintenance_id')->references('id')->on('vehicle_maintenances')->onDelete('cascade');
         });
     }
 
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('expenses');
+        Schema::dropIfExists('vehicle_maintenances');
     }
 };

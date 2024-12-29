@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('vehicle_profiles', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("user_id");
             $table->string('name', 35);
             $table->string('make', 20)->nullable()->default(null);
             $table->string('model_year', 4)->nullable()->default(null);
             $table->string('license_plate', 20)->nullable()->default(null);
-            $table->timestamp('last_insurance_renewal')->nullable()->default(null);
-            $table->string('photo_of_vehicle', 255)->nullable()->default(null);
+            $table->dateTime('last_insurance_renewal')->nullable()->default(null);
+            $table->json('photos_of_vehicle')->nullable()->default(null);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

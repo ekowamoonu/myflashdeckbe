@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('fuel_trackings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("vehicle_profile_id")->nullable()->default(null);
+            $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("vehicle_profile_id");
             $table->decimal('amount', 8, 2);
             $table->decimal('litres', 8, 2);
-            $table->timestamp('purchase_date_and_time');
+            $table->dateTime('purchase_date_and_time');
             $table->timestamps();
-            $table->foreign('vehicle_profile_id')->references('id')->on('vehicle_profiles')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('vehicle_profile_id')->references('id')->on('vehicle_profiles')->onDelete('cascade');
         });
     }
 
