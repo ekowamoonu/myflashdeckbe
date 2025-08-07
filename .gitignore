@@ -1,6 +1,7 @@
 /.phpunit.cache
 /node_modules
 /public/build
+/public/vehicle_profile_images/*
 /public/hot
 /public/storage
 /storage/*.key

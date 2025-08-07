@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class VehicleProfile extends Model
+class Flashcard extends Model
 {
-    //
+    protected $guarded = [];
 }

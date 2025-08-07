@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vehicle_profiles', function (Blueprint $table) {
+        Schema::create('study_collections', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("user_id");
-            $table->string('name', 35);
-            $table->string('make', 20)->nullable()->default(null);
-            $table->string('model_year', 4)->nullable()->default(null);
-            $table->string('license_plate', 20)->nullable()->default(null);
-            $table->dateTime('last_insurance_renewal')->nullable()->default(null);
-            $table->json('photos_of_vehicle')->nullable()->default(null);
+            $table->string('name', 200);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vehicle_profiles');
+        Schema::dropIfExists('study_collections');
     }
 };

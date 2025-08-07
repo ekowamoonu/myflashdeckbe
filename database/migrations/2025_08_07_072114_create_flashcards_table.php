@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fuel_trackings', function (Blueprint $table) {
+        Schema::create('flashcards', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("user_id");
-            $table->unsignedBigInteger("vehicle_profile_id");
-            $table->decimal('amount', 8, 2);
-            $table->decimal('litres', 8, 2);
-            $table->dateTime('purchase_date_and_time');
+            $table->unsignedBigInteger("flashcard_set_id");
+            $table->string('term', 200);
+            $table->text("definition")->nullable();
+            $table->string("image")->nullable()->default(null);
+            $table->integer("order");
             $table->timestamps();
+            $table->foreign('flashcard_set_id')->references('id')->on('flashcard_sets')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('vehicle_profile_id')->references('id')->on('vehicle_profiles')->onDelete('cascade');
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fuel_trackings');
+        Schema::dropIfExists('flashcards');
     }
 };
