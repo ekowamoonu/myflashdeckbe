@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FlashcardSetsController;
 use App\Http\Controllers\FlashcardsController;
 use App\Http\Controllers\StudyCollectionsController;
@@ -15,6 +16,11 @@ Route::get("/check-login", [AuthController::class, "checkLogin"])->middleware("a
 
 //protected routes
 Route::middleware("auth:sanctum")->group(function () {
+
+    //dashboard overview page
+    Route::prefix("overview")->group(function () {
+        Route::get("/", [DashboardController::class, "get"]);
+    });
 
     //study collections
     Route::prefix("study-collections")->group(function () {
