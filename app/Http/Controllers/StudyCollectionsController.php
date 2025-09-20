@@ -15,7 +15,7 @@ class StudyCollectionsController extends Controller
 {
     public function get()
     {
-        $studyCollections = StudyCollection::where("user_id", Auth::user()->id)->orderBy("name", "desc")->get();
+        $studyCollections = StudyCollection::with("flashcardSets")->where("user_id", Auth::user()->id)->orderBy("name", "desc")->get();
 
         return response()->json([
             "data" => StudyCollectionResource::collection($studyCollections)

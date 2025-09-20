@@ -24,7 +24,8 @@ class FlashcardsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             "flashcardSetId" => "required",
-            "name" => "required",
+            "term" => "required",
+            "definition" => "required",
         ]);
 
         if ($validator->fails()) {
@@ -33,13 +34,15 @@ class FlashcardsController extends Controller
             ], 400);
         }
 
+
+        $currentMaxOrder = Flashcard::where("flashcard_set_id", $request->flashcardSetId)->max("order");
+
         $newFlashcard = Flashcard::create([
             "user_id" => Auth::user()->id,
             "flashcard_set_id" => $request->flashcardSetId,
-            "name" => $request->name,
             "term" => $request->term,
             "definition" => $request->definition,
-            "order" => $request->order,
+            "order" => $currentMaxOrder + 1,
         ]);
 
         return response()->json([
@@ -68,7 +71,7 @@ class FlashcardsController extends Controller
             "flashcardSetId" => "required",
             "term" => "required",
             "definition" => "required",
-            "order" => "required",
+            // "order" => "required",
         ]);
 
         if ($validator->fails()) {
@@ -80,7 +83,8 @@ class FlashcardsController extends Controller
         try {
             $flashcardToUpdate = Flashcard::where("id", $id)->where("user_id", Auth::user()->id)->firstOrFail();
             $flashcardToUpdate->update([
-                "name" => $request->name
+                "term" => $request->term,
+                "definition" => $request->definition
             ]);
             return response()->noContent();
         } catch (ModelNotFoundException $e) {

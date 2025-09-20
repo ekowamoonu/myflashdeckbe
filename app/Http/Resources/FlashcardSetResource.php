@@ -18,6 +18,7 @@ class FlashcardSetResource extends JsonResource
             "id" => $this->id,
             "studyCollectionId" => $this->study_collection_id,
             "name" => $this->name,
+            "flashCards" => FlashcardResource::collection($this->flashcards),
             "createdAtRaw" => $this->created_at,
             "createdAtFormatted" => \Carbon\Carbon::parse($this->created_at)->format("d M, Y"),
             "updatedAtRaw" => $this->updated_at,

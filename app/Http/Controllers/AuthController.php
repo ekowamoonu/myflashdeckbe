@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\StudyCollection;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -40,6 +41,12 @@ class AuthController extends Controller
 
         $user = User::create($request->only("name", "email", "password"));
         $token = $user->createToken("auth_token")->plainTextToken;
+
+        //Create general study collection
+        StudyCollection::create([
+            "user_id" => $user->id,
+            "name" => "General"
+        ]);
 
         return response()->json([
             "token" => $token
