@@ -9,6 +9,7 @@ class TextExtractorService
 {
     public function extractText(UploadedFile $uploadedFile): string
     {
+        //
         $fileExtension = $uploadedFile->getClientOriginalExtension();
         $fileRealPath = $uploadedFile->getRealPath();
         $extractedText = "";
